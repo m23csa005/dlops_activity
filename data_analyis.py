@@ -1,5 +1,8 @@
+#Roll Number m23csa005 % 2 != 0 so Catagorical features encoding
+
 import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
 
 def load_data(file_path):
     """Load data from a CSV file."""
@@ -19,6 +22,14 @@ def analyze_data(data):
         # Display summary statistics
         print("Summary Statistics:")
         print(data.describe())
+
+        #performing one-hot-encoding over catagorical column "Class"
+        categorical_column = 'Class'
+        one_hot_encoded = pd.get_dummies(data[categorical_column], prefix=categorical_column)
+        df_encoded = pd.concat([data, one_hot_encoded], axis=1)
+        df_encoded.drop(columns=[categorical_column], inplace=True)     
+        print("Encoded DataFrame:", df_encoded)
+        
 
         # Plot histograms for numeric columns
         print("Histograms:")
@@ -44,3 +55,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
